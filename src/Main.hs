@@ -1,23 +1,12 @@
-import Data.Aeson
-import Data.ByteString.UTF8 (fromString)
-import Data.ByteString.Lazy (toStrict)
-import Data.ByteString.Lazy.UTF8 (toString)
-import Data.HashMap.Strict (HashMap, insert)
+{-# LANGUAGE OverloadedStrings #-}
 
-import qualified Data.Text as Text
+import qualified Workbench.JSON as JSON
+import qualified Workbench.File as File
+
+import Data.Aeson (Value(Bool))
+import Data.HashMap.Strict (insert)
 
 main :: IO ()
-main = do
-  let source  = "/home/alois/jvm/persist/src/test/resources/com/timeout/persist/data/platform/venues.json"
-  let target  = source ++ ".new"
-  content     <- readFile source
-  _           <- writeFile target $ unlines $ map transform $ lines content
-  return () where
-    transform :: String -> String
-    transform x = maybe x set get where
-      get = decodeStrict $ fromString x
-      set (Object xs) = write . Object $ insert (Text.pack "sponsored") (Bool False) xs
-      set x = write x 
-      write = toString . encode
-
-  
+main = File.transformByLines (JSON.transformObject f) "/home/alois/jvm/persist/src/test/resources/com/timeout/persist/data/platform/venues.json"
+  where
+    f = insert "sponsored" (Bool False)

@@ -7,8 +7,19 @@ synopsis:            A collection of simple utilities
 build-type:          Simple
 cabal-version:       >=1.10
 
-executable workbench
-  main-is:             src/Main.hs 
-  ghc-options:         -O2 -fwarn-incomplete-patterns
-  default-extensions:  DeriveDataTypeable, ExistentialQuantification, FlexibleContexts, NoMonomorphismRestriction, TypeFamilies, ScopedTypeVariables
+library
   build-depends:       base >= 4.6, aeson, bytestring, text, unordered-containers, utf8-string
+  default-extensions:  DeriveDataTypeable, ExistentialQuantification, FlexibleContexts, NoMonomorphismRestriction, TypeFamilies, ScopedTypeVariables
+  default-language:    Haskell2010
+  exposed-modules:     Workbench, Workbench.File, Workbench.JSON
+  ghc-options:         -O2 -fwarn-incomplete-patterns
+  hs-source-dirs:      src
+
+executable workbench
+  build-depends:       
+    workbench,
+    base >= 4.6, aeson, bytestring, text, unordered-containers, utf8-string
+  default-extensions:  DeriveDataTypeable, ExistentialQuantification, FlexibleContexts, NoMonomorphismRestriction, TypeFamilies, ScopedTypeVariables
+  default-language:    Haskell2010
+  ghc-options:         -O2 -fwarn-incomplete-patterns
+  main-is:             src/Main.hs 
