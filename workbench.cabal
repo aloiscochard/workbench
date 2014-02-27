@@ -8,17 +8,33 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 library
-  build-depends:       base >= 4.6, aeson, bytestring, text, unordered-containers, utf8-string
+  build-depends:       
+    base >= 4.6, 
+    aeson, 
+    attoparsec,
+    bytestring, 
+    HTTP,
+    network,
+    text, 
+    unordered-containers, 
+    utf8-string
   default-extensions:  DeriveDataTypeable, ExistentialQuantification, FlexibleContexts, NoMonomorphismRestriction, TypeFamilies, ScopedTypeVariables
   default-language:    Haskell2010
-  exposed-modules:     Workbench, Workbench.File, Workbench.JSON
+  exposed-modules:     
+    Workbench, 
+    Workbench.ApacheSolr,
+    Workbench.HTTP,
+    Workbench.File, 
+    Workbench.JSON
   ghc-options:         -O2 -fwarn-incomplete-patterns
   hs-source-dirs:      src
 
 executable workbench
   build-depends:       
     workbench,
-    base >= 4.6, aeson, bytestring, text, unordered-containers, utf8-string
+    base >= 4.6, 
+    aeson, 
+    unordered-containers
   default-extensions:  DeriveDataTypeable, ExistentialQuantification, FlexibleContexts, NoMonomorphismRestriction, TypeFamilies, ScopedTypeVariables
   default-language:    Haskell2010
   ghc-options:         -O2 -fwarn-incomplete-patterns
